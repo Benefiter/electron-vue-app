@@ -138,6 +138,7 @@ export default {
   border: 1px solid steelblue;
   padding: 30px;
   border-radius: 5px;
+  background-color: rgb(123, 177, 177);
 }
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
 

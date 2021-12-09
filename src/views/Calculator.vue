@@ -1,14 +1,16 @@
 <template>
-  <div class="calc-container">
-    <div class="calc-header">
-      <ReduxCalcHeader />
-    </div>
-    <div
-      :class="button.className"
-      :key="button.buttonName"
-      v-for="button in calculatorButtons"
-    >
-      <ReduxCalcButton :text="button.buttonName" />
+  <div class="padding">
+    <div class="calc-container">
+      <div class="calc-header">
+        <ReduxCalcHeader />
+      </div>
+      <div
+        :class="button.className"
+        :key="button.buttonName"
+        v-for="button in calculatorButtons"
+      >
+        <ReduxCalcButton :text="button.buttonName" />
+      </div>
     </div>
   </div>
 </template>
@@ -48,6 +50,10 @@ export default {
 </script>
 
 <style scoped>
+.padding {
+  margin: 100px;
+}
+
 .calc-container {
   display: grid;
   justify-content: center;

@@ -2,7 +2,6 @@
   <footer>
     <p>Copyright &copy; 2021</p>
     <router-link to="/about">About</router-link>
-    <!-- <a href="/about"> About</a> -->
   </footer>
 </template>
 
