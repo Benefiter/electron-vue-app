@@ -17,7 +17,7 @@ export default {
       >Task Tracker</SidebarLink
     >
     <SidebarLink to="/calculator" icon="fas fa-chart-bar"
-      >Calculator</SidebarLink
+      >Vuex Calculator</SidebarLink
     >
 
     <span

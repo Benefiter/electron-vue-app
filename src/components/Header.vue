@@ -5,7 +5,7 @@
       v-show="tasktrackerPage"
       @btn-click="$emit('btn-click')"
       :text="showAddTask ? 'Close' : 'Add Task'"
-      :color="showAddTask ? 'red' : 'green'"
+      :color="showAddTask ? 'black' : 'green'"
     ></Button>
   </header>
 </template>

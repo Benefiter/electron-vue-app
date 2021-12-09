@@ -16,11 +16,6 @@ export default {
 </template>
 
 <style>
-:root {
-  --navbar-color: rgb(3, 121, 111);
-  --navbar-color-hover: rgb(160, 148, 125);
-}
-
 *,
 *::before,
 *::after {
