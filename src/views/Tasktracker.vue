@@ -22,6 +22,9 @@ import AddTask from "../components/AddTask";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
+// set useLocalTasks to false and run 'npm run backend' to start json serve task data.
+const useLocalTasks = true;
+
 export default {
   name: "Home",
   components: {
@@ -98,7 +101,30 @@ export default {
     },
   },
   async created() {
-    this.tasks = await this.fetchTasks();
+    if (useLocalTasks) {
+      this.tasks = [
+        {
+          id: "1",
+          text: "Doctors Appointment",
+          day: "March 5th at 2:30pm",
+          reminder: true,
+        },
+        {
+          id: "2",
+          text: "Meeting with boss",
+          day: "March 6th at 1:30pm",
+          reminder: false,
+        },
+        {
+          id: "3",
+          text: "Food shopping",
+          day: "March 7th at 2:00pm",
+          reminder: false,
+        },
+      ];
+    } else {
+      this.tasks = await this.fetchTasks();
+    }
   },
 };
 </script>
