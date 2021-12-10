@@ -1,0 +1,57 @@
+<template>
+  <div
+    @dblclick="$emit('toggle-completed', appointment.id)"
+    :class="[appointment.completed ? 'completed' : '', 'appointment']"
+  >
+    <h3>
+      {{ appointment.text }}
+      <div @click="$emit('delete-appointment', appointment.id)">
+        <i class="fas fa-times"></i>
+      </div>
+    </h3>
+    <div class="appointment-day">{{ appointment.day }}</div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "Appointment",
+  props: {
+    appointment: Object,
+  },
+};
+</script>
+
+<style scope>
+.appointment-day {
+  display: flex;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-weight: 700;
+}
+
+.fas {
+  color: red;
+}
+.appointment {
+  background: #f4f4f4;
+  margin: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  outline: 4px solid red;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+.appointment.completed {
+  /* border-left: 5px solid green; */
+  outline: 4px solid yellowgreen;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+.appointment h3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+</style>

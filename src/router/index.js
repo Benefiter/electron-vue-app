@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import About from "../views/About";
-import Tasktracker from "../views/Tasktracker";
+import AppointmentWorkflow from "../views/AppointmentWorkflow";
 import Calculator from "../views/Calculator";
 
 const routes = [
@@ -10,9 +10,9 @@ const routes = [
     component: About,
   },
   {
-    path: "/tasktracker",
-    name: "Tasktracker",
-    component: Tasktracker,
+    path: "/appointmentworkflow",
+    name: "AppointmentWorkflow",
+    component: AppointmentWorkflow,
   },
   {
     path: "/calculator",
@@ -22,7 +22,7 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: Tasktracker,
+    component: AppointmentWorkflow,
   },
 ];
 

@@ -13,7 +13,7 @@ export default {
 
 <template>
   <div class="sidebar" :style="{ width: sidebarWidth }">
-    <SidebarLink to="/tasktracker" icon="fas fa-columns"
+    <SidebarLink to="/appointmentworkflow" icon="fas fa-columns"
       >Appointments</SidebarLink
     >
     <SidebarLink to="/calculator" icon="fas fa-chart-bar"

@@ -2,17 +2,18 @@
   <header>
     <h1>{{ title }}</h1>
     <Button
-      v-show="tasktrackerPage"
+      class="button"
+      v-show="appointmentworkflowPage"
       @btn-click="$emit('btn-click')"
-      :text="showAddTask ? 'Close' : 'Add Task'"
-      :color="showAddTask ? 'black' : 'green'"
+      :text="showAddAppointment ? 'Close' : 'Add Appointment'"
+      :color="showAddAppointment ? 'black' : 'green'"
     ></Button>
   </header>
   <AppointmentsFilter
     class="appointment-filter"
     @filterChanged="handleFilterChanged"
-    :initWithReminders="false"
-    :initWithNoReminders="false"
+    :initCompleted="false"
+    :initPending="false"
     :initFilterEnabled="true"
     :initAppointmentDay="null"
     @clearFilters="$emit('clearFilters')"
@@ -26,19 +27,23 @@ export default {
   name: "Header",
   props: {
     title: String,
-    showAddTask: Boolean,
+    showAddAppointment: Boolean,
   },
   components: { Button, AppointmentsFilter },
   computed: {
-    tasktrackerPage() {
-      return ["/tasktracker", "/"].includes(this.$route.path) ? true : false;
+    appointmentworkflowPage() {
+      return ["/appointmentworkflow", "/"].includes(this.$route.path)
+        ? true
+        : false;
     },
   },
   methods: {
     handleFilterChanged(value) {
-      {this.$emit('filterChanged', value)}
-    }
-  }
+      {
+        this.$emit("filterChanged", value);
+      }
+    },
+  },
 };
 </script>
 
@@ -52,5 +57,9 @@ header {
 
 .appointment-filter {
   margin-bottom: 20px;
+}
+
+.button:hover {
+  outline: 2px solid yellowgreen;
 }
 </style>

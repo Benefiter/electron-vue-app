@@ -10,17 +10,17 @@
   </div>
   <div class="filter-container" v-show="filter.filterEnabled">
     <span>
-      <label class="label">Reminders</label>
+      <label class="label">Completed</label>
       <Checkbox
-        :checked="this.filter.withReminders"
-        @cbChanged="updateFilterReminder"
+        :checked="this.filter.completed"
+        @cbChanged="updateFilterCompleted"
       />
     </span>
     <span>
-      <label class="label">No Reminders</label>
+      <label class="label">Pending</label>
       <Checkbox
-        :checked="this.filter.withNoReminders"
-        @cbChanged="updateFilterNoReminder"
+        :checked="this.filter.pending"
+        @cbChanged="updateFilterPending"
       />
     </span>
     <div class="filter-padding">
@@ -48,8 +48,8 @@ export default {
     Checkbox,
   },
   props: {
-    initWithNoReminders: Boolean,
-    initWithReminders: Boolean,
+    initPending: Boolean,
+    initCompleted: Boolean,
     initFilterEnabled: Boolean,
     initAppointmentDay: Date,
   },
@@ -57,8 +57,8 @@ export default {
     return {
       filter: {
         filterEnabled: this.initFilterEnabled,
-        withReminders: this.initWithReminders,
-        withNoReminders: this.initWithNoReminders,
+        completed: this.initCompleted,
+        pending: this.initPending,
         appointmentDay: this.initAppointmentDay,
       },
     };
@@ -71,11 +71,11 @@ export default {
     applyFilters() {
       this.$emit("filterChanged", this.filter);
     },
-    updateFilterReminder(value) {
-      this.filter.withReminders = value;
+    updateFilterCompleted(value) {
+      this.filter.completed = value;
     },
-    updateFilterNoReminder(value) {
-      this.filter.withNoReminders = value;
+    updateFilterPending(value) {
+      this.filter.pending = value;
     },
     updateDateChanged(date) {
       this.filter.appointmentDay = moment(date);
@@ -89,11 +89,11 @@ export default {
 
 <style scoped>
 .filter-container {
-  border: solid #000;
+  border: 1px solid rgba(255, 255, 255, 0.5);
   border-width: 1px 1px;
   padding: 10px 10px;
   text-align: left;
-  box-shadow:  10px 10px 8px #888888;
+  box-shadow: 10px 10px 8px #888888;
 }
 
 .filter-padding {

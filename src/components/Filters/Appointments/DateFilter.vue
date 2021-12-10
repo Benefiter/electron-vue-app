@@ -19,7 +19,7 @@ export default {
     };
   },
   props: {
-      initDate: Date
+    initDate: Date,
   },
   methods: {
     dateChanged(event) {

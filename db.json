@@ -1,25 +1,25 @@
 {
-  "tasks": [
+  "appointments": [
     {
       "id": "1",
       "text": "Doctors Appointment",
       "day": "Wed Dec 1 2021 07:59 pm",
       "timestamp": "2021-12-02T02:59:00.000Z",
-      "reminder": true
+      "completed": true
     },
     {
       "id": "2",
       "text": "Meeting with boss",
       "day": "Thu Dec 2 2021 07:59 pm",
       "timestamp": "2021-12-03T02:59:00.000Z",
-      "reminder": false
+      "completed": false
     },
     {
       "id": "3",
       "text": "Food shopping",
       "day": "Fri Dec 3 2021 08:00 pm",
       "timestamp": "2021-12-04T03:00:00.000Z",
-      "reminder": false
+      "completed": false
     }
   ]
 }
