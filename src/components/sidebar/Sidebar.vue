@@ -14,7 +14,7 @@ export default {
 <template>
   <div class="sidebar" :style="{ width: sidebarWidth }">
     <SidebarLink to="/tasktracker" icon="fas fa-columns"
-      >Task Tracker</SidebarLink
+      >Appointments</SidebarLink
     >
     <SidebarLink to="/calculator" icon="fas fa-chart-bar"
       >Vuex Calculator</SidebarLink

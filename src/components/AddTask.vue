@@ -7,7 +7,7 @@
     <div class="form-control">
       <label>Day & Time</label>
       <input
-        type="text"
+        type="datetime-local"
         v-model="day"
         name="day"
         placeholder="Add Day & Time"
@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
   name: "AddTask",
   data() {
@@ -33,6 +35,11 @@ export default {
     };
   },
   methods: {
+    formatDate(date) {
+      if (date == null) return null;
+
+      return date.today() + date.timenow();
+    },
     onSubmit(e) {
       e.preventDefault();
 
@@ -44,7 +51,8 @@ export default {
       const newTask = {
         // id: Math.floor(Math.random() * 100000),
         text: this.text,
-        day: this.day,
+        day: moment(this.day).format(`ddd MMM D Y hh:mm a`),
+        timestamp: moment(this.day),
         reminder: this.reminder,
       };
 

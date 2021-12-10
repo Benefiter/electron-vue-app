@@ -1,10 +1,12 @@
 <template>
-  <div :key="task.id" v-for="task in tasks">
-    <Task
-      @toggle-reminder="$emit('toggle-reminder', task.id)"
-      @delete-task="$emit('delete-task', task.id)"
-      :task="task"
-    />
+  <div class="tasks">
+    <div :key="task.id" v-for="task in tasks">
+      <Task
+        @toggle-reminder="$emit('toggle-reminder', task.id)"
+        @delete-task="$emit('delete-task', task.id)"
+        :task="task"
+      />
+    </div>
   </div>
 </template>
 
@@ -20,3 +22,13 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.tasks {
+  overflow: auto;
+  height: 400px;
+  border: 1px solid black;
+  border-width: 1px 1px;
+  margin-top: 40px;
+}
+</style>

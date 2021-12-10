@@ -8,9 +8,16 @@
       :color="showAddTask ? 'black' : 'green'"
     ></Button>
   </header>
+  <AppointmentsFilter
+    class="appointment-filter"
+    @filterChanged="handleFilterChanged"
+    :initWithReminders="false"
+    @clearFilters="$emit('clearFilters')"
+  />
 </template>
 <script>
 import Button from "./Button";
+import AppointmentsFilter from "../components/Filters/Appointments/AppointmentsFilter";
 
 export default {
   name: "Header",
@@ -18,12 +25,17 @@ export default {
     title: String,
     showAddTask: Boolean,
   },
-  components: { Button },
+  components: { Button, AppointmentsFilter },
   computed: {
     tasktrackerPage() {
-      return this.$route.path === "/tasktracker" ? true : false;
+      return ["/tasktracker", "/"].includes(this.$route.path) ? true : false;
     },
   },
+  methods: {
+    handleFilterChanged(value) {
+      {console.log('value is ***'); console.log(value); this.$emit('filterChanged', value)}
+    }
+  }
 };
 </script>
 
@@ -32,6 +44,10 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 20px;
+}
+
+.appointment-filter {
   margin-bottom: 20px;
 }
 </style>

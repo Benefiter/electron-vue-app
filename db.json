@@ -3,20 +3,23 @@
     {
       "id": "1",
       "text": "Doctors Appointment",
-      "day": "March 5th at 2:30pm",
-      "reminder": false
+      "day": "Wed Dec 1 2021 07:59 pm",
+      "timestamp": "2021-12-02T02:59:00.000Z",
+      "reminder": true
     },
     {
       "id": "2",
       "text": "Meeting with boss",
-      "day": "March 6th at 1:30pm",
-      "reminder": true
+      "day": "Thu Dec 2 2021 07:59 pm",
+      "timestamp": "2021-12-03T02:59:00.000Z",
+      "reminder": false
     },
     {
       "id": "3",
       "text": "Food shopping",
-      "day": "March 7th at 2:00pm",
-      "reminder": true
+      "day": "Fri Dec 3 2021 08:00 pm",
+      "timestamp": "2021-12-04T03:00:00.000Z",
+      "reminder": false
     }
   ]
 }
