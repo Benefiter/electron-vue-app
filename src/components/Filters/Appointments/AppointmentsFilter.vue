@@ -1,7 +1,7 @@
 <template>
   <div class="filter-title">
     <span>
-      <label class="label">Filters</label>
+      <label class="label">Use Filters</label>
       <Checkbox
         :checked="filter.filterEnabled"
         @cbChanged="updateFilterEnabled"
@@ -31,7 +31,7 @@
     </div>
     <div class="buttons-container">
       <button class="button" @click="applyFilters">Apply</button>
-      <button class="button" @click="resetFilters">Clear</button>
+      <!-- <button class="button" @click="resetFilters">Clear</button> -->
     </div>
   </div>
 </template>

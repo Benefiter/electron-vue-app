@@ -42,12 +42,14 @@ export default {
   outline: 4px solid red;
   margin-top: 12px;
   margin-bottom: 12px;
+  user-select: none;
 }
 .appointment.completed {
   /* border-left: 5px solid green; */
   outline: 4px solid yellowgreen;
   margin-top: 12px;
   margin-bottom: 12px;
+  user-select: none;
 }
 .appointment h3 {
   display: flex;

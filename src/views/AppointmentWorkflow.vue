@@ -65,8 +65,10 @@ export default {
           ...this.appointments,
           { ...appointment, id: this.newId },
         ];
-        // this.displayedAppointments = [...this.getFilteredAppointments(this.appointments)];
-        this.displayedAppointments = [...this.appointments];
+        this.displayedAppointments = [
+          ...this.getFilteredAppointments(this.appointments),
+        ];
+        // this.displayedAppointments = [...this.appointments];
         return;
       }
 
@@ -81,14 +83,19 @@ export default {
       const data = await res.json();
 
       this.appointments = [...this.appointments, data];
-      // this.displayedAppointments = [...this.getFilteredAppointments(this.appointments)];
-      this.displayedAppointments = [...this.appointments];
+      this.displayedAppointments = [
+        ...this.getFilteredAppointments(this.appointments),
+      ];
+      // this.displayedAppointments = [...this.appointments];
     },
     async deleteAppointment(id) {
       if (confirm("Are you sure?")) {
         if (useLocalAppointments) {
           this.appointments = this.appointments.filter((t) => t.id !== id);
-          this.displayedAppointments = [...this.appointments];
+          this.displayedAppointments = [
+            ...this.getFilteredAppointments(this.appointments),
+          ];
+          // this.displayedAppointments = [...this.appointments];
           return;
         }
 
@@ -102,7 +109,10 @@ export default {
             ))
           : alert("Error deleting appointment");
 
-        this.displayedAppointments = [...this.appointments];
+        // this.displayedAppointments = [...this.appointments];
+        this.displayedAppointments = [
+          ...this.getFilteredAppointments(this.appointments),
+        ];
       }
     },
     async toggleCompleted(id) {
@@ -110,7 +120,10 @@ export default {
         this.appointments = this.appointments.map((t) =>
           t.id === id ? { ...t, completed: !t.completed } : t
         );
-        this.displayedAppointments = [...this.appointments];
+        // this.displayedAppointments = [...this.appointments];
+        this.displayedAppointments = [
+          ...this.getFilteredAppointments(this.appointments),
+        ];
         return;
       }
 
@@ -135,7 +148,10 @@ export default {
           ? { ...appointment, completed: data.completed }
           : appointment
       );
-      this.displayedAppointments = [...this.appointments];
+      // this.displayedAppointments = [...this.appointments];
+      this.displayedAppointments = [
+        ...this.getFilteredAppointments(this.appointments),
+      ];
     },
     clearFilters() {
       this.displayedAppointments = [...this.appointments];
@@ -233,6 +249,7 @@ export default {
       this.displayedAppointments = [...this.appointments];
     } else {
       this.appointments = await this.fetchAppointments();
+      this.displayedAppointments = [...this.appointments];
     }
   },
 };
