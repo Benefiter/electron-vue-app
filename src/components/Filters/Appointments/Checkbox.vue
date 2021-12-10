@@ -4,8 +4,8 @@
       type="checkbox"
       @click="handleClick"
       v-model="completed"
-      name="reminder"
-      :checked="reminder"
+      name="cbState"
+      :checked="cbState"
       class="hover-style"
     />
   </span>
@@ -16,7 +16,7 @@ export default {
   name: "Checkbox",
   data() {
     return {
-      reminder: this.checked,
+      cbState: this.checked,
     };
   },
   props: {
@@ -26,8 +26,8 @@ export default {
   },
   methods: {
     handleClick(value) {
-      this.reminder = value.target.checked;
-      this.$emit("filterChanged", this.reminder);
+      this.cbState = value.target.checked;
+      this.$emit("cbChanged", this.cbState);
     },
   },
 };

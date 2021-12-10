@@ -11,7 +11,8 @@
   <AppointmentsFilter
     class="appointment-filter"
     @filterChanged="handleFilterChanged"
-    :initWithReminders="false"
+    :initWithReminders="true"
+    :initFilterEnabled="true"
     @clearFilters="$emit('clearFilters')"
   />
 </template>

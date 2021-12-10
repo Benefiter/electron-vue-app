@@ -147,6 +147,8 @@ export default {
       return data;
     },
     getFilteredTasks(tasks) {
+      if (!this.filter.filterEnabled) return [...this.tasks]
+      
       return tasks.filter((t) => {
         return this.filter.appointmentDay
           ? t.reminder === this.filter.withReminders && this.inDateRange(t)

@@ -1,11 +1,19 @@
 <template>
-  <h3 class="filter-title filter-alignment">Filters</h3>
-  <div class="filter-container">
+  <div class="filter-title">
+    <span>
+      <label class="label">Filters</label>
+      <Checkbox
+        :checked="filter.filterEnabled"
+        @cbChanged="updateFilterEnabled"
+      />
+    </span>
+  </div>
+  <div class="filter-container" v-show="filter.filterEnabled">
     <span>
       <label class="label">With Reminders</label>
       <Checkbox
-        :checked="withReminders"
-        @filterChanged="updateFilterReminder"
+        :checked="filter.withReminders"
+        @cbChanged="updateFilterReminder"
       />
     </span>
     <div class="filter-padding">
@@ -31,16 +39,22 @@ export default {
   },
   props: {
     initWithReminders: Boolean,
+    initFilterEnabled: Boolean
   },
   data() {
     return {
       filter: {
+        filterEnabled: this.initFilterEnabled,
         withReminders: this.initWithReminders,
         appointmentDay: null,
       },
     };
   },
   methods: {
+    updateFilterEnabled(value){
+      this.filter.filterEnabled = value
+      this.$emit("filterChanged", this.filter)
+    },
     applyFilters() {
       console.log("applyFilters");
       console.log(this.withReminders);
