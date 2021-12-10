@@ -10,18 +10,28 @@
   </div>
   <div class="filter-container" v-show="filter.filterEnabled">
     <span>
-      <label class="label">With Reminders</label>
+      <label class="label">Reminders</label>
       <Checkbox
-        :checked="filter.withReminders"
+        :checked="this.filter.withReminders"
         @cbChanged="updateFilterReminder"
       />
     </span>
+    <span>
+      <label class="label">No Reminders</label>
+      <Checkbox
+        :checked="this.filter.withNoReminders"
+        @cbChanged="updateFilterNoReminder"
+      />
+    </span>
     <div class="filter-padding">
-      <DateFilter @date-filter-changed="updateDateChanged" />
+      <DateFilter
+        :initDate="this.filter.appointmentDay"
+        @date-filter-changed="updateDateChanged"
+      />
     </div>
     <div class="buttons-container">
       <button class="button" @click="applyFilters">Apply</button>
-      <button class="button" @click="$emit('clearFilters')">Clear</button>
+      <button class="button" @click="resetFilters">Clear</button>
     </div>
   </div>
 </template>
@@ -38,36 +48,40 @@ export default {
     Checkbox,
   },
   props: {
+    initWithNoReminders: Boolean,
     initWithReminders: Boolean,
-    initFilterEnabled: Boolean
+    initFilterEnabled: Boolean,
+    initAppointmentDay: Date,
   },
   data() {
     return {
       filter: {
         filterEnabled: this.initFilterEnabled,
         withReminders: this.initWithReminders,
-        appointmentDay: null,
+        withNoReminders: this.initWithNoReminders,
+        appointmentDay: this.initAppointmentDay,
       },
     };
   },
   methods: {
-    updateFilterEnabled(value){
-      this.filter.filterEnabled = value
-      this.$emit("filterChanged", this.filter)
+    updateFilterEnabled(value) {
+      this.filter.filterEnabled = value;
+      this.$emit("filterChanged", this.filter);
     },
     applyFilters() {
-      console.log("applyFilters");
-      console.log(this.withReminders);
-      console.log(this.appointmentDay);
       this.$emit("filterChanged", this.filter);
     },
     updateFilterReminder(value) {
       this.filter.withReminders = value;
     },
+    updateFilterNoReminder(value) {
+      this.filter.withNoReminders = value;
+    },
     updateDateChanged(date) {
-      console.log("updateDateChanged called");
-      console.log(date);
       this.filter.appointmentDay = moment(date);
+    },
+    resetFilters() {
+      this.$emit("clearFilters");
     },
   },
 };
@@ -83,6 +97,7 @@ export default {
 
 .filter-padding {
   margin-top: 10px;
+  padding-left: 10px;
 }
 
 .filter-title {
@@ -92,6 +107,7 @@ export default {
 
 .label {
   padding-right: 10px;
+  padding-left: 10px;
 }
 
 .button {

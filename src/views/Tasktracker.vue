@@ -57,9 +57,7 @@ export default {
         this.newId++;
         this.tasks = [...this.tasks, { ...task, id: this.newId }];
         // this.displayedTasks = [...this.getFilteredTasks(this.tasks)];
-        this.displayedTasks = [...this.tasks]
-        console.log('addTask');
-        console.log(this.tasks)
+        this.displayedTasks = [...this.tasks];
         return;
       }
 
@@ -75,13 +73,11 @@ export default {
 
       this.tasks = [...this.tasks, data];
       // this.displayedTasks = [...this.getFilteredTasks(this.tasks)];
-      this.displayedTasks = [...this.tasks]
+      this.displayedTasks = [...this.tasks];
     },
     async deleteTask(id) {
       if (confirm("Are you sure?")) {
         if (useLocalTasks) {
-          console.log("deleteTask");
-          console.log(id);
           this.tasks = this.tasks.filter((t) => t.id !== id);
           this.displayedTasks = [...this.tasks];
           return;
@@ -126,7 +122,7 @@ export default {
       this.displayedTasks = [...this.tasks];
     },
     clearFilters() {
-      this.displayedTasks = [...this.tasks]
+      this.displayedTasks = [...this.tasks];
     },
     async fetchTasks() {
       if (useLocalTasks) return this.tasks;
@@ -147,19 +143,34 @@ export default {
       return data;
     },
     getFilteredTasks(tasks) {
-      if (!this.filter.filterEnabled) return [...this.tasks]
-      
-      return tasks.filter((t) => {
+      if (!this.filter.filterEnabled) return [...this.tasks];
+
+      if (this.filter.withReminders && this.filter.withNoReminders)
         return this.filter.appointmentDay
-          ? t.reminder === this.filter.withReminders && this.inDateRange(t)
-          : t.reminder == this.filter.withReminders;
-      });
+          ? tasks.filter((t) => this.inDateRange(t))
+          : [...this.tasks];
+
+      if (this.filter.withReminders) {
+        return tasks.filter((t) => {
+          return this.filter.appointmentDay
+            ? t.reminder && this.inDateRange(t)
+            : t.reminder;
+        });
+      }
+
+      if (this.filter.withNoReminders) {
+        return tasks.filter((t) => {
+          return this.filter.appointmentDay
+            ? !t.reminder && this.inDateRange(t)
+            : !t.reminder;
+        });
+      }
+
+      return [];
     },
     async fetchTasksFiltered(filter) {
       this.filter = filter;
 
-      console.log("filter");
-      console.log(this.filter);
       if (useLocalTasks) {
         this.displayedTasks = this.getFilteredTasks(this.tasks);
         return;
@@ -167,19 +178,11 @@ export default {
 
       const res = await fetch(`http://localhost:5000/tasks`);
 
-      console.log("fetchTasksFitered");
-      console.log(filter);
-
       const data = await res.json();
 
-      console.log("data");
-      console.log(data);
-
-      this.displayedTasks = this.getFilteredTasks(data)
+      this.displayedTasks = this.getFilteredTasks(data);
     },
     inDateRange(item) {
-      console.log(`inDateRange ${this.filter} ${item}`);
-
       return moment(item.timestamp) < this.filter.appointmentDay;
     },
   },

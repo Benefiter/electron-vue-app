@@ -15,13 +15,14 @@ export default {
   name: "DateFilter",
   data() {
     return {
-      date: null,
+      date: this.initDate,
     };
+  },
+  props: {
+      initDate: Date
   },
   methods: {
     dateChanged(event) {
-      console.log("dateChanged");
-      console.log(this.date);
       this.date = event.target.value;
       this.$emit("date-filter-changed", this.date);
     },

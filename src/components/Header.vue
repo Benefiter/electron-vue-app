@@ -11,8 +11,10 @@
   <AppointmentsFilter
     class="appointment-filter"
     @filterChanged="handleFilterChanged"
-    :initWithReminders="true"
+    :initWithReminders="false"
+    :initWithNoReminders="false"
     :initFilterEnabled="true"
+    :initAppointmentDay="null"
     @clearFilters="$emit('clearFilters')"
   />
 </template>
@@ -34,7 +36,7 @@ export default {
   },
   methods: {
     handleFilterChanged(value) {
-      {console.log('value is ***'); console.log(value); this.$emit('filterChanged', value)}
+      {this.$emit('filterChanged', value)}
     }
   }
 };
