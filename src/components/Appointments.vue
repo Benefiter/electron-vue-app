@@ -40,6 +40,6 @@ export default {
   margin-top: 40px;
   padding-left: 10px;
   text-align: left;
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 </style>

@@ -43,7 +43,7 @@ export default {
   },
   data() {
     return {
-      showAddAppointment: Boolean,
+      showAddAppointment: false,
       appointments: [],
       displayedAppointments: [],
       filter: {
