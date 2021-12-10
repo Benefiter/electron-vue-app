@@ -30,5 +30,6 @@ export default {
   border: 1px solid black;
   border-width: 1px 1px;
   margin-top: 40px;
+  box-shadow:  10px 10px 8px #888888;
 }
 </style>
