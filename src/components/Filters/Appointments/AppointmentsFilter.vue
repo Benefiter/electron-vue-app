@@ -1,7 +1,7 @@
 <template>
   <div class="filter-title">
     <span>
-      <label class="label">Use Filters</label>
+      <label class="label">{{ filter.filterEnabled ? 'Filters (Enabled)' : 'Filters (Disabled)'}}</label>
       <Checkbox
         :checked="filter.filterEnabled"
         @cbChanged="updateFilterEnabled"
@@ -10,28 +10,32 @@
   </div>
   <div class="filter-container" v-show="filter.filterEnabled">
     <span>
-      <label class="label">Completed</label>
+      <label class="label completed-outline">Completed</label>
       <Checkbox
+        class="cb-padding"
         :checked="this.filter.completed"
         @cbChanged="updateFilterCompleted"
       />
     </span>
     <span>
-      <label class="label">Pending</label>
+      <label class="label pending-outline">Pending</label>
       <Checkbox
+        class="cb-padding"
         :checked="this.filter.pending"
         @cbChanged="updateFilterPending"
       />
     </span>
-    <div class="filter-padding">
-      <DateFilter
-        :initDate="this.filter.appointmentDay"
-        @date-filter-changed="updateDateChanged"
-      />
-    </div>
-    <div class="buttons-container">
-      <button class="button" @click="applyFilters">Apply</button>
-      <!-- <button class="button" @click="resetFilters">Clear</button> -->
+    <div class="flex">
+      <div class="filter-padding">
+        <DateFilter
+          :initDate="this.filter.appointmentDay"
+          @date-filter-changed="updateDateChanged"
+        />
+      </div>
+      <div class="buttons-container">
+        <button class="button" @click="applyFilters">Apply</button>
+        <!-- <button class="button" @click="resetFilters">Clear</button> -->
+      </div>
     </div>
   </div>
 </template>
@@ -91,14 +95,13 @@ export default {
 .filter-container {
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-width: 1px 1px;
-  padding: 10px 10px;
+  padding: 20px 20px;
   text-align: left;
   box-shadow: 10px 10px 8px #888888;
 }
 
 .filter-padding {
-  margin-top: 10px;
-  padding-left: 10px;
+  margin-top: 20px;
 }
 
 .filter-title {
@@ -109,6 +112,11 @@ export default {
 .label {
   padding-right: 10px;
   padding-left: 10px;
+}
+
+.cb-padding {
+  padding-left: 5px;
+  padding-right: 10px;
 }
 
 .button {
@@ -123,6 +131,22 @@ export default {
 
 .buttons-container {
   margin: 5px;
-  text-align: right;
+  margin-top: 20px;
+}
+
+.completed-outline {
+  border: 1px solid yellowgreen;
+  border-width: 2px;
+}
+
+.pending-outline {
+  border: 1px solid red;
+  border-width: 2px;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>
