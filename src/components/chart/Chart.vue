@@ -41,7 +41,6 @@
       <canvas id="calc-chart"></canvas>
     </div>
   </div>
-  <!-- <div>{{ chartData }}</div> -->
 </template>
 
 <script>

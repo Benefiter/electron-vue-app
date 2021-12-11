@@ -1,5 +1,8 @@
 <template>
   <div class="padding">
+    <div class="history">
+      <HistoryItems />
+    </div>
     <div class="chart">
       <Chart />
     </div>
@@ -26,12 +29,14 @@ import {
 import ReduxCalcHeader from "../components/reduxcalculator/ReduxCalcHeader";
 import ReduxCalcButton from "../components/reduxcalculator/ReduxCalcButton";
 import Chart from "../components/chart/Chart";
+import HistoryItems from "../components/chart/history/Historyitems";
 
 export default {
   components: {
     ReduxCalcHeader,
     ReduxCalcButton,
     Chart,
+    HistoryItems,
   },
   name: "Calculator",
   data() {
@@ -85,6 +90,12 @@ export default {
 }
 
 .chart {
+  margin: auto;
+  width: 400px;
+  padding-bottom: 40px;
+}
+
+.history {
   margin: auto;
   width: 400px;
   padding-bottom: 40px;
