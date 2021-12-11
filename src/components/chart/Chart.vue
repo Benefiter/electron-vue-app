@@ -37,7 +37,12 @@
       v-show="!hidden"
       @click="toggleHidden"
     ></Icon>
-    <div :style="{ display: hidden ? 'none' : 'block' }">
+    <div
+      :style="{ display: hidden ? 'none' : 'block' }"
+      @drop="onDrop($event)"
+      @dragover.prevent
+      @dragenter.prevent
+    >
       <canvas id="calc-chart"></canvas>
     </div>
   </div>
@@ -47,7 +52,7 @@
 import Icon from "../icon";
 import { Chart, registerables } from "chart.js";
 import { cloneDeep } from "lodash";
-import { CHART_OPTIONS } from "./chart-contants";
+import { CHART_OPTIONS, MAX_CHART_LINES } from "./chart-contants";
 import "chartjs-adapter-moment";
 
 export default {
@@ -56,6 +61,7 @@ export default {
     return {
       hidden: false,
       mounted: false,
+      droppedItemIds: [],
     };
   },
   mounted() {
@@ -64,6 +70,9 @@ export default {
     this.mounted = true;
   },
   computed: {
+    maxChartedLines() {
+      return this.$store.state.chartData?.datasets?.length > MAX_CHART_LINES;
+    },
     hasSamples() {
       if (!this.mounted) return null;
 
@@ -82,7 +91,18 @@ export default {
     Icon,
   },
   methods: {
+    onDrop(event) {
+      event.preventDefault();
+      const itemId = event.dataTransfer.getData("itemId");
+      if (this.droppedItemIds.includes(itemId)) return;
+
+      this.droppedItemIds.push(itemId);
+      this.maxChartedLines
+        ? alert("Maximum number of lines have been added")
+        : this.$store.commit("addLineToChart", itemId);
+    },
     clearChart() {
+      this.droppedItemIds = [];
       this.$store.commit("clearChart");
     },
     cacheTrend() {

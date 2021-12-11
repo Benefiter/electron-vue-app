@@ -1,6 +1,6 @@
 <template>
   <div class="padding">
-    <div class="history">
+    <div v-show="hasHistory" class="history">
       <HistoryItems />
     </div>
     <div class="chart">
@@ -50,6 +50,9 @@ export default {
     };
   },
   computed: {
+    hasHistory() {
+      return this.$store.state.resultHistoryCache?.length > 0;
+    },
     operand() {
       return this.$store.state.operand;
     },

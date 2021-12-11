@@ -1,7 +1,10 @@
 import { createStore } from "vuex";
 import { cloneDeep, isEqual } from "lodash";
 import { operators } from "../models/calculatorButtons";
-import { DEFAULT_CHART_DATA_STATE } from "../components/chart/chart-contants";
+import {
+  DEFAULT_CHART_DATA_STATE,
+  ChartLineColors,
+} from "../components/chart/chart-contants";
 
 export default createStore({
   state: {
@@ -43,7 +46,20 @@ export default createStore({
     },
     clearChart(state) {
       state.resultHistory = [];
-      state.chartData.datasets[0].data = [];
+      state.chartData.datasets = [...DEFAULT_CHART_DATA_STATE.datasets];
+    },
+    addLineToChart(state, id) {
+      const item = state.resultHistoryCache.find((c) => c.id == id);
+      if (item == null) return;
+
+      let chartData = state.chartData;
+      chartData.datasets.push({
+        label: id,
+        backgroundColor: ChartLineColors[chartData.datasets.length],
+        data: item.resultHistory.map((r) => ({ x: r.timestamp, y: r.value })),
+      });
+
+      state.chartData = cloneDeep(chartData);
     },
   },
   actions: {},

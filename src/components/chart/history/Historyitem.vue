@@ -29,7 +29,6 @@ export default {
         marginTop: this.margin,
         opacity: this.dragging ? "0.25" : "inherit",
       };
-      //   return `{display: inline-block, margin: ${this.margin}, margin-top: ${this.margin}, opacity: ${this.dragging ? '0.25' : 'inherit'}}`;
     },
     isDragging() {
       return this.dragging ? "dragging" : "";

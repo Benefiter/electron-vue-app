@@ -1,9 +1,8 @@
 <template>
-  <div class="history-items-container" v-show="!hidden">
+  <div class="history-items-container clearfix" v-show="!hidden">
     <span class="title"> Calculator History </span>
     <span class="collapse-icon">
       <Icon
-        class="left"
         title="Show history"
         icon="expand"
         color="black"
@@ -11,7 +10,6 @@
         v-show="!collapsed"
       ></Icon>
       <Icon
-        class="left"
         title="Hide history"
         icon="collapse"
         color="black"
@@ -27,6 +25,8 @@
         class="apphistoryitem"
         margin="10px"
         :text="getItemSummary(item)"
+        draggable="true"
+        @dragstart="startDrag($event, item)"
       ></Historyitem>
     </div>
   </div>
@@ -48,15 +48,20 @@ export default {
       collapsed: false,
     };
   },
+  setup() {
+    const startDrag = (event, item) => {
+      event.dataTransfer.dropEffect = "copy";
+      event.dataTransfer.effectAllowed = "copy";
+      event.dataTransfer.setData("itemId", item.id);
+    };
+
+    return { startDrag };
+  },
   computed: {
     hidden() {
-      console.log("hidden");
-      console.log(this.$store.state.resultHistoryCache?.length === 0);
       return this.$store.state.resultHistoryCache?.length === 0;
     },
     historyCache() {
-      console.log("historyCache");
-      console.log(this.$store.state.resultHistoryCache);
       return this.$store.state.resultHistoryCache;
     },
   },
@@ -102,7 +107,14 @@ export default {
 }
 
 .items {
+  width: 380px;
   overflow: wrap;
-  padding: 10px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding-top: 5px;
+}
+.clearfix {
+  overflow: auto;
 }
 </style>
