@@ -39,16 +39,16 @@ export default {
   margin: 5px;
   padding: 10px 20px;
   cursor: pointer;
-  outline: 4px solid red;
-  margin-top: 12px;
-  margin-bottom: 12px;
+  outline: 2px solid red;
+  margin-top: 10px;
+  margin-bottom: 10px;
   user-select: none;
 }
+
 .appointment.completed {
-  /* border-left: 5px solid green; */
-  outline: 4px solid yellowgreen;
-  margin-top: 12px;
-  margin-bottom: 12px;
+  outline: 2px solid yellowgreen;
+  margin-top: 10px;
+  margin-bottom: 10px;
   user-select: none;
 }
 .appointment h3 {
