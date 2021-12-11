@@ -12,7 +12,7 @@
   </div>
   <div class="filter-container" v-show="filter.filterEnabled">
     <span>
-      <label class="label completed-outline">Completed</label>
+      <label class="label">Completed</label>
       <Checkbox
         class="cb-padding"
         :checked="this.filter.completed"
@@ -20,7 +20,7 @@
       />
     </span>
     <span>
-      <label class="label pending-outline">Pending</label>
+      <label class="label">Pending</label>
       <Checkbox
         class="cb-padding"
         :checked="this.filter.pending"
@@ -135,16 +135,6 @@ export default {
 .buttons-container {
   margin: 5px;
   margin-top: 20px;
-}
-
-.completed-outline {
-  border: 1px solid yellowgreen;
-  border-width: 2px;
-}
-
-.pending-outline {
-  border: 1px solid red;
-  border-width: 2px;
 }
 
 .flex {

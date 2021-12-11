@@ -45,7 +45,7 @@ export default {
   user-select: none;
 }
 
-.appointment.completed {
+.completed {
   outline: 2px solid yellowgreen;
   margin-top: 10px;
   margin-bottom: 10px;
