@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
-import { cloneDeep } from "lodash";
+import { cloneDeep, isEqual } from "lodash";
 import { operators } from "../models/calculatorButtons";
+import { DEFAULT_CHART_DATA_STATE } from "../components/chart/chart-contants";
 
 export default createStore({
   state: {
@@ -10,6 +11,9 @@ export default createStore({
     currentValue: 0,
     prevValue: 0,
     resultHistory: [],
+    chartData: DEFAULT_CHART_DATA_STATE,
+    resultHistoryCache: [],
+    cacheId: 1,
   },
   getters: {},
   mutations: {
@@ -18,15 +22,41 @@ export default createStore({
     },
     setButtonClick(state, button) {
       const updatedState = handleButtonClick(state, button);
-      state.operand = updatedState.operand;
-      state.prevOperand = updatedState.prevOperand;
-      state.currentOperation = updatedState.currentOperation;
-      state.currentValue = updatedState.currentValue;
+      if (!isEqual(state.operand, updatedState.operand))
+        state.operand = updatedState.operand;
+      if (!isEqual(state.prevOperand, updatedState.prevOperand))
+        state.prevOperand = updatedState.prevOperand;
+      if (!isEqual(state.currentOperation, updatedState.currentOperation))
+        state.currentOperation = updatedState.currentOperation;
+      if (!isEqual(state.currentValue, updatedState.currentValue))
+        state.currentValue = updatedState.currentValue;
+      if (!isEqual(state.resultHistory, updatedState.resultHistory))
+        state.resultHistory = updatedState.resultHistory;
+      if (!isEqual(state.chartData, updatedState.chartData))
+        state.chartData = updatedState.chartData;
+    },
+    cacheResultHistory(state) {
+      state.resultHistoryCache = updateResultHistoryCache(state);
+      state.cacheId = state.cacheId + 1;
+      state.resultHistory = [];
+      state.chartData.datasets[0].data = [];
+    },
+    clearChart(state) {
+      state.resultHistory = [];
+      state.chartData.datasets[0].data = [];
     },
   },
   actions: {},
   modules: {},
 });
+
+const updateResultHistoryCache = (state) => {
+  const cacheResultHistory = cloneDeep(state.resultHistoryCache);
+  const resultHistory = cloneDeep(state.resultHistory);
+  cacheResultHistory.push({ id: state.cacheId, resultHistory });
+
+  return cacheResultHistory;
+};
 
 const handleButtonClick = (state, button) => {
   let updatedState = cloneDeep(state);
@@ -151,10 +181,29 @@ const execute = (state) => {
     ...state.resultHistory,
     { timestamp: new Date().toISOString().toString(), value: result },
   ];
+  state.chartData = getChartData(state);
 
   return result;
 };
 
+const getChartData = (state) => {
+  if (state == null || state.resultHistory == null) return;
+
+  const chartData = state.resultHistory.map((sample) => ({
+    x: sample.timestamp,
+    y: sample.value.toString(),
+  }));
+
+  return {
+    ...state.chartData,
+    datasets: [
+      {
+        ...state.chartData.datasets[0],
+        data: [...chartData],
+      },
+    ],
+  };
+};
 const getPrevOperand = (prevOperand) => {
   if (prevOperand === "") return "";
 

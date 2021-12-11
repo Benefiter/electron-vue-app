@@ -1,5 +1,8 @@
 <template>
   <div class="padding">
+    <div class="chart">
+      <Chart />
+    </div>
     <div class="calc-container">
       <div class="calc-header">
         <ReduxCalcHeader />
@@ -22,11 +25,13 @@ import {
 } from "../models/calculatorButtons";
 import ReduxCalcHeader from "../components/reduxcalculator/ReduxCalcHeader";
 import ReduxCalcButton from "../components/reduxcalculator/ReduxCalcButton";
+import Chart from "../components/chart/Chart";
 
 export default {
   components: {
     ReduxCalcHeader,
     ReduxCalcButton,
+    Chart,
   },
   name: "Calculator",
   data() {
@@ -36,6 +41,7 @@ export default {
       calculatorButtons: CalculatorButtonContext,
       chartsamples: [],
       appHistoryExists: false,
+      calcCurrentHistory: [],
     };
   },
   computed: {
