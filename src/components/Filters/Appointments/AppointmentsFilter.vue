@@ -1,7 +1,9 @@
 <template>
   <div class="filter-title">
     <span>
-      <label class="label">{{ filter.filterEnabled ? 'Filters (Enabled)' : 'Filters (Disabled)'}}</label>
+      <label class="label">{{
+        filter.filterEnabled ? "Filters (Enabled)" : "Filters (Disabled)"
+      }}</label>
       <Checkbox
         :checked="filter.filterEnabled"
         @cbChanged="updateFilterEnabled"
