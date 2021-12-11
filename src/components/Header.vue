@@ -28,7 +28,7 @@ export default {
     title: String,
     showAddAppointment: Boolean,
   },
-  emits: ["filterChanged", 'clearFilters', 'btn-click'],
+  emits: ["filterChanged", "clearFilters", "btn-click"],
   components: { Button, AppointmentsFilter },
   computed: {
     appointmentworkflowPage() {

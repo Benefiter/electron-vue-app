@@ -44,7 +44,7 @@ export default {
       completed: false,
     };
   },
-    emits: ['add-appointment'],
+  emits: ["add-appointment"],
   methods: {
     formatDate(date) {
       if (date == null) return null;
