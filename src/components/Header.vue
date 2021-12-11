@@ -10,7 +10,6 @@
     ></Button>
   </header>
   <AppointmentsFilter
-    class="appointment-filter"
     @filterChanged="handleFilterChanged"
     :initCompleted="false"
     :initPending="false"
@@ -29,6 +28,7 @@ export default {
     title: String,
     showAddAppointment: Boolean,
   },
+  emits: ["filterChanged", 'clearFilters', 'btn-click'],
   components: { Button, AppointmentsFilter },
   computed: {
     appointmentworkflowPage() {
@@ -52,10 +52,6 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-}
-
-.appointment-filter {
   margin-bottom: 20px;
 }
 

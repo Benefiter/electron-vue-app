@@ -3,7 +3,7 @@
     <input
       type="checkbox"
       @click="handleClick"
-      v-model="completed"
+      v-model="cbState"
       name="cbState"
       :checked="cbState"
       class="hover-style"

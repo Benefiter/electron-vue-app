@@ -21,6 +21,7 @@ export default {
   props: {
     initDate: Date,
   },
+  emits: ['date-filter-changed'],
   methods: {
     dateChanged(event) {
       this.date = event.target.value;

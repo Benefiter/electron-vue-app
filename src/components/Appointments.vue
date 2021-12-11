@@ -20,6 +20,7 @@ export default {
   props: {
     appointments: Array,
   },
+  emits: ["toggle-completed", "delete-appointment"],
   components: {
     Appointment,
   },
@@ -29,7 +30,7 @@ export default {
 <style scoped>
 .appointments {
   overflow: auto;
-  height: 320px;
+  height: 310px;
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-width: 1px 1px;
   box-shadow: 10px 10px 8px #888888;

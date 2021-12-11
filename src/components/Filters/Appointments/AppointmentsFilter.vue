@@ -59,6 +59,7 @@ export default {
     initFilterEnabled: Boolean,
     initAppointmentDay: Date,
   },
+  emits: ["filterChanged", "clearFilters"],
   data() {
     return {
       filter: {

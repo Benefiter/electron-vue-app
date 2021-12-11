@@ -8,12 +8,10 @@
       @clearFilters="clearFilters"
     />
 
-    <div :style="{ display: showAddAppointment ? 'block' : 'none' }">
-      <AddAppointment
-        v-show="showAddAppointment"
-        @add-appointment="addAppointment"
-      />
-    </div>
+    <AddAppointment
+      v-if="showAddAppointment"
+      @add-appointment="addAppointment"
+    />
     <Appointments
       @toggle-completed="toggleCompleted"
       @delete-appointment="deleteAppointment"

@@ -5,7 +5,7 @@
 <script>
 export default {
   props: {
-    value: Number,
+    value: String,
   },
   name: "ReduxCalcOperand",
 };

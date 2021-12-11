@@ -11,6 +11,7 @@ export default {
     text: String,
     color: String,
   },
+  emits: ['btn-click'],
   methods: {
     onClick() {
       this.$emit("btn-click");
