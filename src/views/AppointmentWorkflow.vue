@@ -53,6 +53,20 @@ export default {
     };
   },
   methods: {
+    addAppointmentToast(appointment) {
+      this.$toast.show(`Successfully added appointment ${appointment?.text}.`, {
+        type: "success",
+        position: "top-right",
+        duration: 2000,
+      });
+    },
+    deleteAppointmentToast(message) {
+      this.$toast.show(message ?? `Successfully deleted appointment.`, {
+        type: "success",
+        position: "top-right",
+        duration: 2000,
+      });
+    },
     toggleAddAppointment() {
       this.showAddAppointment = !this.showAddAppointment;
     },
@@ -66,7 +80,7 @@ export default {
         this.displayedAppointments = [
           ...this.getFilteredAppointments(this.appointments),
         ];
-        // this.displayedAppointments = [...this.appointments];
+        this.addAppointmentToast(appointment);
         return;
       }
 
@@ -84,6 +98,7 @@ export default {
       this.displayedAppointments = [
         ...this.getFilteredAppointments(this.appointments),
       ];
+      this.addAppointmentToast(appointment);
     },
     async deleteAppointment(id) {
       if (confirm("Are you sure?")) {
@@ -92,6 +107,7 @@ export default {
           this.displayedAppointments = [
             ...this.getFilteredAppointments(this.appointments),
           ];
+          this.deleteAppointmentToast();
           return;
         }
 
@@ -103,11 +119,14 @@ export default {
           ? (this.appointments = this.appointments.filter(
               (appointment) => appointment.id !== id
             ))
-          : alert("Error deleting appointment");
+          : this.deleteAppointmentToast(
+              `Server Error deleting appointment ${res.status}`
+            );
 
         this.displayedAppointments = [
           ...this.getFilteredAppointments(this.appointments),
         ];
+        this.deleteAppointmentToast();
       }
     },
     async toggleCompleted(id) {
