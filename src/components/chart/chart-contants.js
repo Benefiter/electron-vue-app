@@ -20,6 +20,9 @@ export const CHART_OPTIONS = {
   scales: {
     xAxes: {
       type: "time",
+      time: {
+        parser: "MMM DD hh:mm:ss",
+      },
       ticks: {
         autoSkip: true,
         maxTicksLimit: 5,

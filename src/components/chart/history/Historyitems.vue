@@ -21,12 +21,12 @@
     <div class="items" v-show="!collapsed">
       <Historyitem
         v-for="item in historyCache"
-        :key="item.id"
+        :key="item.id.toString()"
         class="apphistoryitem"
         margin="10px"
         :text="getItemSummary(item)"
-        draggable="true"
         @dragstart="startDrag($event, item)"
+        :id="item.id.toString()"
       ></Historyitem>
     </div>
   </div>

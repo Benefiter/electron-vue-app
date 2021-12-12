@@ -8,17 +8,38 @@ export default {
   setup() {
     return { collapsed, toggleSidebar, sidebarWidth };
   },
+  methods: {
+    clearHistory() {
+      this.$store.commit("clearHistory");
+    },
+  },
+  computed: {
+    hasHistory() {
+      return this.$store.state.resultHistoryCache?.length > 0;
+    },
+  },
 };
 </script>
 
 <template>
   <div class="sidebar" :style="{ width: sidebarWidth }">
+    <div v-show="!collapsed" class="divider" />
     <SidebarLink to="/appointmentworkflow" icon="fas fa-columns"
       >Appointments</SidebarLink
     >
+    <div v-show="!collapsed" class="divider" />
+
     <SidebarLink to="/calculator" icon="fas fa-chart-bar"
       >Vuex Calculator</SidebarLink
     >
+    <div
+      @click="clearHistory"
+      v-show="!collapsed && hasHistory"
+      class="subitem"
+    >
+      Clear History
+    </div>
+    <div v-show="!collapsed" class="divider" />
 
     <span
       class="collapse-icon"
@@ -39,6 +60,13 @@ export default {
 </style>
 
 <style scoped>
+.divider {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: 1px;
+  background-color: #ccc;
+  border: none;
+}
 .sidebar {
   color: white;
   background-color: var(--sidebar-bg-color);
@@ -74,5 +102,15 @@ export default {
 .rotate-180 {
   transform: rotate(180deg);
   transition: 0.2s linear;
+}
+
+.subitem {
+  width: max-content;
+  margin-left: 40px;
+  font-size: 0.75rem;
+}
+.subitem:hover {
+  background-color: var(--sidebar-item-hover);
+  transition: 0.3s ease;
 }
 </style>

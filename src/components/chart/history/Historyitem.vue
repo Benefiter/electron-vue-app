@@ -1,5 +1,11 @@
 <template>
-  <div :style="getStyle">
+  <div
+    :style="getStyle"
+    @dragstart="setDragStart"
+    @dragend="setDragEnd"
+    @dblclick="removeFromChart"
+    :draggable="!isOnChart"
+  >
     <Icon :title="text" class="left" icon="history" color="black"></Icon>
   </div>
 </template>
@@ -18,20 +24,36 @@ export default {
     };
   },
   props: {
+    id: String,
     text: String,
     margin: String,
   },
+  methods: {
+    setDragStart() {
+      this.dragging = true;
+    },
+    setDragEnd() {
+      this.dragging = false;
+    },
+    removeFromChart() {
+      this.$store.commit("removeFromChart", this.id);
+    },
+  },
   computed: {
     getStyle() {
-      return {
+      const style = {
         display: "inline-block",
         margin: this.margin,
         marginTop: this.margin,
-        opacity: this.dragging ? "0.25" : "inherit",
+        opacity: this.dragging || this.isOnChart ? "0.25" : "inherit",
       };
+      return style;
     },
     isDragging() {
       return this.dragging ? "dragging" : "";
+    },
+    isOnChart() {
+      return this.$store.state.droppedItems.includes(this.id.toString());
     },
   },
 };

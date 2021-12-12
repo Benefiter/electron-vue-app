@@ -5,6 +5,7 @@ import {
   DEFAULT_CHART_DATA_STATE,
   ChartLineColors,
 } from "../components/chart/chart-contants";
+import moment from "moment";
 
 export default createStore({
   state: {
@@ -17,6 +18,7 @@ export default createStore({
     chartData: DEFAULT_CHART_DATA_STATE,
     resultHistoryCache: [],
     cacheId: 1,
+    droppedItems: [],
   },
   getters: {},
   mutations: {
@@ -43,23 +45,42 @@ export default createStore({
       state.cacheId = state.cacheId + 1;
       state.resultHistory = [];
       state.chartData.datasets[0].data = [];
+      state.droppedItems = [];
     },
     clearChart(state) {
       state.resultHistory = [];
       state.chartData.datasets = [...DEFAULT_CHART_DATA_STATE.datasets];
+      state.droppedItems = [];
     },
     addLineToChart(state, id) {
       const item = state.resultHistoryCache.find((c) => c.id == id);
       if (item == null) return;
 
-      let chartData = state.chartData;
+      let chartData = cloneDeep(state.chartData);
       chartData.datasets.push({
         label: id,
         backgroundColor: ChartLineColors[chartData.datasets.length],
         data: item.resultHistory.map((r) => ({ x: r.timestamp, y: r.value })),
       });
 
+      state.droppedItems.push(id);
       state.chartData = cloneDeep(chartData);
+    },
+    clearHistory(state) {
+      state.resultHistoryCache = [];
+      state.droppedItems = [];
+    },
+    removeFromChart(state, id) {
+      if (state.droppedItems.includes(id.toString())) {
+        state.droppedItems = state.droppedItems.filter(
+          (i) => i !== id.toString()
+        );
+        let chartData = cloneDeep(state.chartData);
+        chartData.datasets = chartData.datasets.filter(
+          (d) => d.label !== id.toString()
+        );
+        state.chartData = chartData;
+      }
     },
   },
   actions: {},
@@ -195,7 +216,7 @@ const execute = (state) => {
   state.operand = result.toString();
   state.resultHistory = [
     ...state.resultHistory,
-    { timestamp: new Date().toISOString().toString(), value: result },
+    { timestamp: new moment(), value: result },
   ];
   state.chartData = getChartData(state);
 

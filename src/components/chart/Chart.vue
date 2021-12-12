@@ -61,7 +61,6 @@ export default {
     return {
       hidden: false,
       mounted: false,
-      droppedItemIds: [],
     };
   },
   mounted() {
@@ -94,15 +93,13 @@ export default {
     onDrop(event) {
       event.preventDefault();
       const itemId = event.dataTransfer.getData("itemId");
-      if (this.droppedItemIds.includes(itemId)) return;
+      if (this.$store.state.droppedItems.includes(itemId)) return;
 
-      this.droppedItemIds.push(itemId);
       this.maxChartedLines
         ? alert("Maximum number of lines have been added")
         : this.$store.commit("addLineToChart", itemId);
     },
     clearChart() {
-      this.droppedItemIds = [];
       this.$store.commit("clearChart");
     },
     cacheTrend() {
