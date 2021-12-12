@@ -1,23 +1,15 @@
 <script>
 import SidebarLink from "./SidebarLink";
 import { collapsed, toggleSidebar, sidebarWidth } from "./state";
-const bullet1 =
-  'Add samples to the chart by generating calculator results. The "Cache Trend Data icon will appear on the chart.';
-const bullet2 =
-  'Use the "Cache trend data" icon on the chart to create a snapshot of the current trend.';
-const bullet3 =
-  "Drag and drop one or more of the cached items from the Calculator History card to the chart";
-const bullet4 = "Hover over a cached item to see a summary";
-const bullet5 =
-  "Double click on a disabled icon on the Calculator History card to remove it from the chart";
-const usage = `<div :style="{ width: 300px }"><ul><li>${bullet1}</li>&nbsp<li>${bullet2}</li>&nbsp<li>${bullet3}</li>&nbsp<li>${bullet4}</li>&nbsp<li>${bullet5}</li></ul></div>`;
+import { calculatorUsage, appointmentsUsage } from "./toastmessages";
 
 export default {
   props: {},
   components: { SidebarLink },
   data() {
     return {
-      usageShowing: false,
+      calculatorUsageShowing: false,
+      appointmentsUsageShowing: false,
     };
   },
   setup() {
@@ -32,14 +24,25 @@ export default {
         duration: 2000,
       });
     },
-    usage() {
-      this.usageShowing = true;
-      this.$toast.show(usage, {
+    calculatorUsage() {
+      this.calculatorUsageShowing = true;
+      this.$toast.show(calculatorUsage, {
         type: "info",
         position: "bottom",
         duration: false,
         onClose: () => {
-          this.usageShowing = false;
+          this.calculatorUsageShowing = false;
+        },
+      });
+    },
+    appointmentsUsage() {
+      this.appointmentsUsageShowing = true;
+      this.$toast.show(appointmentsUsage, {
+        type: "info",
+        position: "bottom-right",
+        duration: false,
+        onClose: () => {
+          this.appointmentsUsageShowing = false;
         },
       });
     },
@@ -48,8 +51,18 @@ export default {
     onCalculatorPage() {
       return this.$route.path == "/calculator";
     },
+    onAppointmentsPage() {
+      return this.$route.path == "/appointmentworkflow";
+    },
     hasHistory() {
       return this.$store.state.resultHistoryCache?.length > 0;
+    },
+  },
+  watch: {
+    $route(to, from) {
+      if (to.path !== from.path) {
+        this.$toast.clear();
+      }
     },
   },
 };
@@ -61,6 +74,13 @@ export default {
     <SidebarLink to="/appointmentworkflow" icon="fas fa-columns"
       >Appointments</SidebarLink
     >
+    <div
+      v-show="onAppointmentsPage && !appointmentsUsageShowing"
+      @click="appointmentsUsage"
+      class="subitem"
+    >
+      Help
+    </div>
     <div v-show="!collapsed" class="divider" />
 
     <SidebarLink to="/calculator" icon="fas fa-chart-bar"
@@ -74,8 +94,8 @@ export default {
       Clear History
     </div>
     <div
-      v-show="onCalculatorPage && !usageShowing"
-      @click="usage"
+      v-show="onCalculatorPage && !calculatorUsageShowing"
+      @click="calculatorUsage"
       class="subitem"
     >
       Help

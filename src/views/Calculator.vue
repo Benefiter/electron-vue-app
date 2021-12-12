@@ -1,4 +1,5 @@
 <template>
+  <h1 class="title">Calculator</h1>
   <div class="padding">
     <div v-show="hasHistory" class="history">
       <HistoryItems />
@@ -64,6 +65,10 @@ export default {
 </script>
 
 <style scoped>
+.title {
+  margin-top: 30px;
+}
+
 .padding {
   margin: 100px;
 }
