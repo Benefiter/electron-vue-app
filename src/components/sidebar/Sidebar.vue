@@ -1,19 +1,53 @@
 <script>
 import SidebarLink from "./SidebarLink";
 import { collapsed, toggleSidebar, sidebarWidth } from "./state";
+const bullet1 =
+  'Add samples to the chart by generating calculator results. The "Cache Trend Data icon will appear on the chart.';
+const bullet2 =
+  'Use the "Cache trend data" icon on the chart to create a snapshot of the current trend.';
+const bullet3 =
+  "Drag and drop one or more of the cached items from the Calculator History card to the chart";
+const bullet4 = "Hover over a cached item to see a summary";
+const bullet5 =
+  "Double click on a disabled icon on the Calculator History card to remove it from the chart";
+const usage = `<div :style="{ width: 300px }"><ul><li>${bullet1}</li>&nbsp<li>${bullet2}</li>&nbsp<li>${bullet3}</li>&nbsp<li>${bullet4}</li>&nbsp<li>${bullet5}</li></ul></div>`;
 
 export default {
   props: {},
   components: { SidebarLink },
+  data() {
+    return {
+      usageShowing: false,
+    };
+  },
   setup() {
     return { collapsed, toggleSidebar, sidebarWidth };
   },
   methods: {
     clearHistory() {
       this.$store.commit("clearHistory");
+      this.$toast.show("Calculator history cleared", {
+        type: "info",
+        position: "top-right",
+        duration: 2000,
+      });
+    },
+    usage() {
+      this.usageShowing = true;
+      this.$toast.show(usage, {
+        type: "info",
+        position: "bottom",
+        duration: false,
+        onClose: () => {
+          this.usageShowing = false;
+        },
+      });
     },
   },
   computed: {
+    onCalculatorPage() {
+      return this.$route.path == "/calculator";
+    },
     hasHistory() {
       return this.$store.state.resultHistoryCache?.length > 0;
     },
@@ -38,6 +72,13 @@ export default {
       class="subitem"
     >
       Clear History
+    </div>
+    <div
+      v-show="onCalculatorPage && !usageShowing"
+      @click="usage"
+      class="subitem"
+    >
+      Help
     </div>
     <div v-show="!collapsed" class="divider" />
 

@@ -84,7 +84,6 @@ export default {
       this.displayedAppointments = [
         ...this.getFilteredAppointments(this.appointments),
       ];
-      // this.displayedAppointments = [...this.appointments];
     },
     async deleteAppointment(id) {
       if (confirm("Are you sure?")) {
@@ -93,7 +92,6 @@ export default {
           this.displayedAppointments = [
             ...this.getFilteredAppointments(this.appointments),
           ];
-          // this.displayedAppointments = [...this.appointments];
           return;
         }
 
@@ -107,7 +105,6 @@ export default {
             ))
           : alert("Error deleting appointment");
 
-        // this.displayedAppointments = [...this.appointments];
         this.displayedAppointments = [
           ...this.getFilteredAppointments(this.appointments),
         ];
@@ -118,7 +115,6 @@ export default {
         this.appointments = this.appointments.map((t) =>
           t.id === id ? { ...t, completed: !t.completed } : t
         );
-        // this.displayedAppointments = [...this.appointments];
         this.displayedAppointments = [
           ...this.getFilteredAppointments(this.appointments),
         ];
@@ -146,7 +142,6 @@ export default {
           ? { ...appointment, completed: data.completed }
           : appointment
       );
-      // this.displayedAppointments = [...this.appointments];
       this.displayedAppointments = [
         ...this.getFilteredAppointments(this.appointments),
       ];
