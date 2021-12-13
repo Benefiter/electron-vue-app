@@ -15,7 +15,6 @@
     :initPending="false"
     :initFilterEnabled="true"
     :initAppointmentDay="null"
-    @clearFilters="$emit('clearFilters')"
   />
 </template>
 <script>
@@ -28,7 +27,7 @@ export default {
     title: String,
     showAddAppointment: Boolean,
   },
-  emits: ["filterChanged", "clearFilters", "btn-click"],
+  emits: ["filterChanged", "btn-click"],
   components: { Button, AppointmentsFilter },
   computed: {
     appointmentworkflowPage() {

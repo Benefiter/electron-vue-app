@@ -11,7 +11,7 @@ test("AppointmentsFilter is not shown if filter enable prop is false", () => {
       initAppointmentDay: new Date(),
     },
   });
-  let div = sut.find(".filter-container");
+  const div = sut.find(".filter-container");
   expect(div).toBeDefined();
   expect(div.element.style.display).toBe("none");
 });
@@ -26,7 +26,7 @@ test("AppointmentsFilter is shown if filter enable prop is true", () => {
       initAppointmentDay: dateInputValue,
     },
   });
-  let div = sut.find(".filter-container");
+  const div = sut.find(".filter-container");
   expect(div).toBeDefined();
   expect(div.element.style.display).toBe("");
   expect(sut.findComponent(DateFilter).exists()).toBe(true);
@@ -45,7 +45,7 @@ test("Apply click emit filterChanged event with filter details", async () => {
       initAppointmentDay: dateInputValue,
     },
   });
-  let div = sut.find(".filter-container");
+  const div = sut.find(".filter-container");
   expect(div).toBeDefined();
   expect(sut.find("button").exists()).toBe(true);
   sut.find("button").trigger("click");

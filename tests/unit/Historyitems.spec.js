@@ -45,7 +45,7 @@ const getSut = (store) => {
 test("Historyitems container is hidden when no cached history items in store", () => {
   const testStore = cloneDeep(store);
   const sut = getSut(testStore);
-  let div = sut.find(".history-items-container");
+  const div = sut.find(".history-items-container");
   expect(div).toBeDefined();
   expect(div.element.style.display).toBe("none");
   expect(sut.vm.hidden).toBeTruthy;
@@ -67,7 +67,7 @@ test("Historyitems container is visible when at least one history item in store"
     ],
   });
   const sut = getSut(testStore);
-  let div = sut.find(".history-items-container");
+  const div = sut.find(".history-items-container");
   expect(div).toBeDefined();
   expect(div.element.style.display).toBe("");
   expect(sut.vm.hidden).toBeFalsy;

@@ -5,7 +5,6 @@
       title="Appointments"
       :showAddAppointment="showAddAppointment"
       @filterChanged="fetchAppointmentsFiltered"
-      @clearFilters="clearFilters"
     />
 
     <AddAppointment
