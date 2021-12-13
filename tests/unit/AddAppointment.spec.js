@@ -1,6 +1,7 @@
 import { mount } from "@vue/test-utils";
 import AddAppointment from "@/components/AddAppointment";
 import moment from "moment";
+import {appointmentValue, dayValue} from './testData'
 
 let sut;
 let AppointmentInput;
@@ -44,17 +45,14 @@ test("Adding appointment does not trigger alert and triggers custom event with p
   expect(submitButton.exists()).toBeTruthy();
   expect(submitButton.attributes("value")).toBe("Save Appointment");
 
-  const newAppointment = "New Appointment";
-  const dayValue = "2018-06-07T00:00";
-
-  await AppointmentInput.setValue(newAppointment);
+  await AppointmentInput.setValue(appointmentValue);
   await DayAndTimeInput.setValue(dayValue);
   await sut.find("form").trigger("submit.prevent");
 
   const emitted = sut.emitted("add-appointment");
   expect(emitted.length).toBe(1);
   expect(emitted[0][0]).toStrictEqual({
-    text: newAppointment,
+    text: appointmentValue,
     day: moment(dayValue).format(`ddd MMM D Y hh:mm a`),
     timestamp: moment(dayValue),
     completed: false,

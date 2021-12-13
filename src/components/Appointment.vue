@@ -1,11 +1,11 @@
 <template>
   <div
     @dblclick="$emit('toggle-completed', appointment.id)"
-    :class="[appointment.completed ? 'completed' : '', 'appointment']"
+    :class="[appointment.completed ? 'completed' : '', 'pending']"
   >
     <h3>
       {{ appointment.text }}
-      <div @click="$emit('delete-appointment', appointment.id)">
+      <div id="delete" @click="$emit('delete-appointment', appointment.id)">
         <i class="fas fa-times"></i>
       </div>
     </h3>
@@ -34,7 +34,7 @@ export default {
 .fas {
   color: red;
 }
-.appointment {
+.pending {
   background: #f4f4f4;
   margin: 5px;
   padding: 10px 20px;
@@ -51,7 +51,7 @@ export default {
   margin-bottom: 10px;
   user-select: none;
 }
-.appointment h3 {
+.pending h3 {
   display: flex;
   align-items: center;
   justify-content: space-between;
