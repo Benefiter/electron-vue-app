@@ -48,8 +48,7 @@ test("Apply click emit filterChanged event with filter details", async () => {
   const div = sut.find(".filter-container");
   expect(div).toBeDefined();
   expect(sut.find("button").exists()).toBe(true);
-  sut.find("button").trigger("click");
-  await sut.vm.$nextTick();
+  await sut.find("button").trigger("click");
   const emitted = sut.emitted("filterChanged");
   expect(emitted.length).toBe(1);
   expect(emitted[0][0]).toEqual({

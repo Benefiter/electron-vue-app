@@ -3,7 +3,7 @@
     <label class="label">Add Appointment</label>
   </div>
   <div class="form-container">
-    <form @submit="onSubmit" class="add-form">
+    <form @submit.prevent="onSubmit" class="add-form">
       <div class="form-control">
         <label>Appointment</label>
         <input
@@ -22,12 +22,9 @@
           placeholder="Add Day & Time"
         />
       </div>
-      <!-- <div class="form-control form-control-check">
-      <label>Set Reminder</label>
-      <input type="checkbox" v-model="reminder" name="reminder" />
-    </div> -->
-
-      <input type="submit" value="Save Appointment" class="btn" />
+      <button type="submit" value="Save Appointment" class="btn">
+        Save Appointment
+      </button>
     </form>
   </div>
 </template>
@@ -41,19 +38,11 @@ export default {
     return {
       text: "",
       day: "",
-      completed: false,
     };
   },
   emits: ["add-appointment"],
   methods: {
-    formatDate(date) {
-      if (date == null) return null;
-
-      return date.today() + date.timenow();
-    },
-    onSubmit(e) {
-      e.preventDefault();
-
+    onSubmit() {
       if (!this.text) {
         alert("Please add an Appointment");
         return;
@@ -64,14 +53,13 @@ export default {
         text: this.text,
         day: moment(this.day).format(`ddd MMM D Y hh:mm a`),
         timestamp: moment(this.day),
-        completed: this.completed,
+        completed: false,
       };
 
       this.$emit("add-appointment", newAppointment);
 
       this.text = "";
       this.day = "";
-      this.completed = false;
     },
   },
 };
