@@ -3,14 +3,14 @@
     <span class="title"> Calculator History </span>
     <span class="collapse-icon">
       <Icon
-        title="Show history"
+        title="Hide history"
         icon="expand"
         color="black"
         @click="toggleCollapsed"
         v-show="!collapsed"
       ></Icon>
       <Icon
-        title="Hide history"
+        title="Show history"
         icon="collapse"
         color="black"
         @click="toggleCollapsed"
@@ -38,7 +38,7 @@ import Historyitem from "./Historyitem";
 import moment from "moment";
 
 export default {
-  name: "Chart",
+  name: "HistoryItems",
   components: {
     Icon,
     Historyitem,

@@ -32,7 +32,7 @@ import moment from "moment";
 const useLocalAppointments = true;
 
 export default {
-  name: "Home",
+  name: "AppointmentWorkflow",
   components: {
     Appointments,
     AddAppointment,

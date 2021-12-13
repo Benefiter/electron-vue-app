@@ -173,5 +173,6 @@ export default {
 .subitem:hover {
   background-color: var(--sidebar-item-hover);
   transition: 0.3s ease;
+  cursor: pointer;
 }
 </style>

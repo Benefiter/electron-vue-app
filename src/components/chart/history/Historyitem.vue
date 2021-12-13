@@ -14,7 +14,7 @@
 import Icon from "../../icon";
 
 export default {
-  name: "Chart",
+  name: "Historyitem",
   components: {
     Icon,
   },
@@ -49,18 +49,9 @@ export default {
       };
       return style;
     },
-    isDragging() {
-      return this.dragging ? "dragging" : "";
-    },
     isOnChart() {
       return this.$store.state.droppedItems.includes(this.id.toString());
     },
   },
 };
 </script>
-
-<style scoped>
-.dragging {
-  opacity: 0.25;
-}
-</style>
