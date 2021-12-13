@@ -36,7 +36,6 @@
       </div>
       <div class="buttons-container">
         <button class="button" @click="applyFilters">Apply</button>
-        <!-- <button class="button" @click="resetFilters">Clear</button> -->
       </div>
     </div>
   </div>
@@ -59,7 +58,7 @@ export default {
     initFilterEnabled: Boolean,
     initAppointmentDay: Date,
   },
-  emits: ["filterChanged", "clearFilters"],
+  emits: ["filterChanged"],
   data() {
     return {
       filter: {
@@ -86,9 +85,6 @@ export default {
     },
     updateDateChanged(date) {
       this.filter.appointmentDay = moment(date);
-    },
-    resetFilters() {
-      this.$emit("clearFilters");
     },
   },
 };
