@@ -5,6 +5,7 @@
         filter.filterEnabled ? "Filters (Enabled)" : "Filters (Disabled)"
       }}</label>
       <Checkbox
+        id="filterenablement"
         :checked="filter.filterEnabled"
         @cbChanged="updateFilterEnabled"
       />

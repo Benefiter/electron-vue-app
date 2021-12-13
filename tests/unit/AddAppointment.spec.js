@@ -1,7 +1,7 @@
 import { mount } from "@vue/test-utils";
 import AddAppointment from "@/components/AddAppointment";
 import moment from "moment";
-import {appointmentValue, dayValue} from './testData'
+import { appointmentValue, dayValue } from "./testData";
 
 let sut;
 let AppointmentInput;
