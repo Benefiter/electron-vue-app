@@ -64,8 +64,11 @@ export default {
     };
   },
   mounted() {
-    Chart.register(...registerables);
-    this.ctx = document.getElementById("calc-chart").getContext("2d");
+    // Required to prevent unit testing errors
+    if (Symbol.iterator in Object(registerables)) {
+      Chart.register(...registerables);
+      this.ctx = document.getElementById("calc-chart").getContext("2d");
+    }
     this.mounted = true;
   },
   computed: {
@@ -75,13 +78,15 @@ export default {
     hasSamples() {
       if (!this.mounted) return null;
 
-      Chart.getChart(this.ctx)?.destroy();
+      if (Symbol.iterator in Object(registerables)) {
+        Chart.getChart(this.ctx)?.destroy();
 
-      new Chart(this.ctx, {
-        type: "line",
-        data: cloneDeep(this.$store.state.chartData),
-        options: cloneDeep(CHART_OPTIONS),
-      });
+        new Chart(this.ctx, {
+          type: "line",
+          data: cloneDeep(this.$store.state.chartData),
+          options: cloneDeep(CHART_OPTIONS),
+        });
+      }
 
       return this.$store.state.chartData?.datasets[0]?.data?.length > 0;
     },
